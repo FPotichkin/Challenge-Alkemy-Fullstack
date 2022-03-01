@@ -7,7 +7,7 @@ const router = express.Router()
 const swaggerDefinition = {
     openapi: '3.0.0',
     info:{
-        title: 'Express API',
+        title: 'Express API for ABM app',
         version: '1.0.0'
     },
     servers:[
