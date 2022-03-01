@@ -26,4 +26,14 @@ const createSchema = joi.object(
     }
 )
 
-module.exports = {findAllByUserSchema, createSchema}
+const updateSchema = joi.object({
+    concept,
+    categoryId,
+    date,
+    quantity,
+    userId: userId.required(),
+    id: id.required()
+})
+
+
+module.exports = {findAllByUserSchema, createSchema, updateSchema}

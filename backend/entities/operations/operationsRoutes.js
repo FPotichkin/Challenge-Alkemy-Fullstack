@@ -1,7 +1,7 @@
 const express = require('express')
 const { validatorHandler } = require('../../middlewares/validatorHandler')
 const operationsController = require('./operationsController')
-const { findAllByUserSchema, createSchema } = require('./operationsSchema')
+const { findAllByUserSchema, createSchema, updateSchema } = require('./operationsSchema')
 
 const router = express.Router()
 
@@ -138,5 +138,86 @@ router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsControll
  */
  router.post('/', validatorHandler(createSchema,'body'), operationsController.create)
 
+/**
+ * @swagger
+ * /operations/:
+ *   patch:
+ *     tags:
+ *       - operations
+ *     summary: Update a operation
+ *     requestBody:
+ *        content:
+ *           'application/json':
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      id:
+ *                          type: integer
+ *                          required: true
+ *                          example: 1
+ *                      userId:
+ *                          type: integer
+ *                          required: true
+ *                          example: 1
+ *                      categoryId:
+ *                          type: integer
+ *                          example: 2
+ *                      concept:
+ *                          type: string
+ *                          example: Cinema
+ *                      date:
+ *                          type: string
+ *                          example: 2022-02-09T11:05:33.000Z
+ *                      quantity:
+ *                          type: float
+ *                          example: 300
+ *     responses:
+ *       200:
+ *         description: Operation updated.
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      msg:
+ *                          type: string
+ *                          example: updated succesfully
+ *       400:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      errors:
+ *                          msg: string
+ *                          example: 'categoryId required'
+ *       403:
+ *          description: Operation belongs to other user
+ *          content:
+ *              application/json:
+ *                  schema:
+*                       type: object
+*                       properties:
+*                           statusCode:
+*                               type: integer
+*                               example: 403
+*                           error:
+*                               type: string
+*                               example: Forbidden
+*                           message:
+*                               type: string
+*                               example: operation belongs to other user
+ *       404:
+ *          description: Not Found
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          error:
+ *                              msg: string
+ *                              example: 'operation not found' 
+ */
+ router.patch('/', validatorHandler(updateSchema, 'body'), operationsController.update)
 
 module.exports = router

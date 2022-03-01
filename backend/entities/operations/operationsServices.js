@@ -1,3 +1,4 @@
+const boom = require('@hapi/boom')
 const { models } = require('../../libs/sequelize')
 
 const getAll = async (userId) =>{
@@ -10,4 +11,24 @@ const create = async (operation) =>{
     return newOperation
 }
 
-module.exports = {getAll, create }
+const getById = async(id)=>{
+    const operation = await models.Operation.findByPk(id)
+    if(!operation){
+        throw boom.notFound('operation not found')
+    }else{
+        return operation
+    }
+}
+
+const update = async (operationUpdates)=>{
+    const operationTarget = await getById(operationUpdates.id)
+    if(operationTarget.userId === operationUpdates.userId){
+        const changes = {...operationUpdates}
+        console.log(changes)
+        await operationTarget.update(changes)
+    }else{
+        throw boom.forbidden('operation belongs to other user')
+    }
+}
+
+module.exports = {getAll, create, update }
