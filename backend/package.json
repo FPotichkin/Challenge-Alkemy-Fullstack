@@ -11,7 +11,6 @@
     "seeders:generate": "npx sequelize-cli seed:generate --name",
     "seeders:run": "npx sequelize-cli db:seed:all",
     "seeders:revert": "npx sequelize-cli db:seed:undo"
-
   },
   "keywords": [],
   "author": "",
@@ -21,7 +20,9 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "pg": "^8.7.3",
-    "sequelize": "^6.17.0"
+    "sequelize": "^6.17.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
