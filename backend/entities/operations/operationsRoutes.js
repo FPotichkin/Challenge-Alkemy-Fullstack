@@ -1,5 +1,7 @@
 const express = require('express')
+const { validatorHandler } = require('../../middlewares/validatorHandler')
 const operationsController = require('./operationsController')
+const { findAllByUserSchema } = require('./operationsSchema')
 
 const router = express.Router()
 
@@ -71,6 +73,6 @@ const router = express.Router()
  */
 
 
-router.get('/', operationsController.getAllByUser)
+router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsController.getAllByUser)
 
 module.exports = router
