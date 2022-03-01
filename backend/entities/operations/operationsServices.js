@@ -5,6 +5,9 @@ const getAll = async (userId) =>{
     const operationsList = await models.Operation.findAll({where:{userId}})
     return operationsList
 }
+const create = async (operation) =>{
+    const newOperation = await models.Operation.create(operation)
+    return newOperation
+}
 
-
-module.exports = {getAll }
+module.exports = {getAll, create }

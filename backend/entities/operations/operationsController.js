@@ -15,7 +15,18 @@ const getAllByUser = async (req,res,next)=>{
     }
 }
 
+const create = async (req, res, next) =>{
+    try {
+        await services.create(req.body)
+        res.json({
+            data:{
+                msg:'created'
+            }
+        })
+    } catch (err) {
+        
+    }
+}
 
 
-
-module.exports = { getAllByUser }
+module.exports = { getAllByUser, create }

@@ -9,9 +9,21 @@ const categoryId = joi.number()
 const userId = joi.number()
 const limit = joi.number()
 
-const findAllByUserSchema = joi.object({
-    userId: userId.required(),
-    limit
-})
+const findAllByUserSchema = joi.object(
+    {
+        userId: userId.required(),
+        limit
+    }
+)
+const createSchema = joi.object(
+    {
+        concept: concept.required(),
+        quantity: quantity.required(),
+        date: date.required(),
+        type: type.required(),
+        userId: userId.required(),
+        categoryId: categoryId.required()
+    }
+)
 
-module.exports = {findAllByUserSchema}
+module.exports = {findAllByUserSchema, createSchema}
