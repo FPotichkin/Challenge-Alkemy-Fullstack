@@ -1,4 +1,6 @@
 const boom = require('@hapi/boom')
+const { response } = require('express')
+const res = require('express/lib/response')
 const { models } = require('../../libs/sequelize')
 
 const getAll = async (userId) =>{
@@ -24,11 +26,20 @@ const update = async (operationUpdates)=>{
     const operationTarget = await getById(operationUpdates.id)
     if(operationTarget.userId === operationUpdates.userId){
         const changes = {...operationUpdates}
-        console.log(changes)
         await operationTarget.update(changes)
     }else{
         throw boom.forbidden('operation belongs to other user')
     }
 }
 
-module.exports = {getAll, create, update }
+const remove = async (id, userId)=>{
+    const operationTarget = await getById(id)
+
+    if(operationTarget.userId == userId){
+        await operationTarget.destroy(id)
+    }else{
+        throw boom.forbidden('operation belongs to other user')
+    }
+}
+
+module.exports = {getAll, create, update, remove }

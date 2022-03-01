@@ -33,7 +33,21 @@ const update = async (req, res, next )=>{
         await services.update(req.body)
         res.json({
             data:{
-                msg: 'updated succesfully'
+                msg:'updated succesfully'
+            }
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+const remove = async (req,res,next) =>{
+    try {
+        console.log(req.params)
+        await services.remove(req.params.id, req.query.userId)
+        res.json({
+            data:{
+                msg: 'deleted succesfully'
             }
         })
     } catch (err) {
@@ -42,4 +56,4 @@ const update = async (req, res, next )=>{
 }
 
 
-module.exports = { getAllByUser, create, update }
+module.exports = { getAllByUser, create, update, remove }

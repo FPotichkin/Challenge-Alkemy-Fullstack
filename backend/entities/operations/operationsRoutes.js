@@ -1,7 +1,7 @@
 const express = require('express')
 const { validatorHandler } = require('../../middlewares/validatorHandler')
 const operationsController = require('./operationsController')
-const { findAllByUserSchema, createSchema, updateSchema } = require('./operationsSchema')
+const { findAllByUserSchema, createSchema, updateSchema, deleteParamsSchema, deleteQuerySchema } = require('./operationsSchema')
 
 const router = express.Router()
 
@@ -219,5 +219,70 @@ router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsControll
  *                              example: 'operation not found' 
  */
  router.patch('/', validatorHandler(updateSchema, 'body'), operationsController.update)
+
+/**
+ * @swagger
+ * /operations/{id}:
+ *   delete:
+ *     tags:
+ *       - operations
+ *     summary: Update a operation
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: operation id  
+ *       - in: query
+ *         name: userId
+ *         required: true  
+ *     responses:
+ *       200:
+ *         description: Operation deleted.
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      msg:
+ *                          type: string
+ *                          example: updated succesfully
+ *       400:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      errors:
+ *                          msg: string
+ *                          example: 'userId required'
+ *       403:
+ *          description: Operation belongs to other user
+ *          content:
+ *              application/json:
+ *                  schema:
+*                       type: object
+*                       properties:
+*                           statusCode:
+*                               type: integer
+*                               example: 403
+*                           error:
+*                               type: string
+*                               example: Forbidden
+*                           message:
+*                               type: string
+*                               example: operation belongs to other user
+ *       404:
+ *          description: Not Found
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      properties:
+ *                          error:
+ *                              msg: string
+ *                              example: 'operation not found' 
+ */
+ router.delete('/:id',validatorHandler(deleteParamsSchema,'params'), validatorHandler(deleteQuerySchema,'query'), operationsController.remove)
+
 
 module.exports = router

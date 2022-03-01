@@ -35,5 +35,12 @@ const updateSchema = joi.object({
     id: id.required()
 })
 
+const deleteParamsSchema = joi.object({
+    id: id.required()
+})
+const deleteQuerySchema = joi.object({
+    userId: userId.required()
+})
 
-module.exports = {findAllByUserSchema, createSchema, updateSchema}
+
+module.exports = {findAllByUserSchema, createSchema, updateSchema, deleteParamsSchema, deleteQuerySchema}
