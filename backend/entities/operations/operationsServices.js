@@ -1,6 +1,4 @@
 const boom = require('@hapi/boom')
-const { response } = require('express')
-const res = require('express/lib/response')
 const { models } = require('../../libs/sequelize')
 
 const getAll = async (userId) =>{

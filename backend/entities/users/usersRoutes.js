@@ -2,6 +2,8 @@ const express = require('express')
 const usersController = require('./usersController')
 const { validatorHandler } = require('../../middlewares/validatorHandler')
 const { findSchema, updateSchema } = require('./usersSchema')
+const { authHandler } = require('../../middlewares/authHandler')
+
 
 const router = express.Router()
 
@@ -31,6 +33,8 @@ const router = express.Router()
  * @swagger
  * /users/{userId}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - users
  *     summary: Get user info.
@@ -71,12 +75,14 @@ const router = express.Router()
  *                       
  */
 
-router.get('/:userId', validatorHandler(findSchema,'params'), usersController.getById)
+router.get('/:userId', validatorHandler(findSchema,'params'), authHandler('params'), usersController.getById)
 
 /**
  * @swagger
  * /users/:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *      - users
  *     summary: Update user.
@@ -126,6 +132,6 @@ router.get('/:userId', validatorHandler(findSchema,'params'), usersController.ge
  *                      error:
  *                          msg: 'user not found'                                             
  */
- router.patch('/', validatorHandler(updateSchema, 'body'), usersController.update)
+ router.patch('/', validatorHandler(updateSchema, 'body'), authHandler('body'), usersController.update)
 
 module.exports = router

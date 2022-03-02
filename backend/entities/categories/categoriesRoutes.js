@@ -2,6 +2,7 @@ const express = require('express')
 const categoriesController = require('./categoriesController')
 const { validatorHandler } = require('../../middlewares/validatorHandler')
 const { findByCategoryParams, findByCategoryQuery } = require('./categoriesSchema')
+const { authHandler } = require('../../middlewares/authHandler')
 
 const router = express.Router()
 
@@ -43,6 +44,8 @@ router.get('/', categoriesController.getAll)
  * @swagger
  * /categories/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - categories
  *     summary: Retrieve all operations related to a specific category.
@@ -69,6 +72,6 @@ router.get('/', categoriesController.getAll)
  *                          example: 'userId required'             
  */
 //#endregion
-router.get('/:id', validatorHandler(findByCategoryParams,'params'), validatorHandler(findByCategoryQuery), categoriesController.getById)
+router.get('/:id', validatorHandler(findByCategoryParams,'params'), validatorHandler(findByCategoryQuery,'query'), authHandler('query'), categoriesController.getById)
 
 module.exports = router

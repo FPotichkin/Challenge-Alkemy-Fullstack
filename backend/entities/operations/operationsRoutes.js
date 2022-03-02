@@ -1,4 +1,5 @@
 const express = require('express')
+const { authHandler } = require('../../middlewares/authHandler')
 const { validatorHandler } = require('../../middlewares/validatorHandler')
 const operationsController = require('./operationsController')
 const { findAllByUserSchema, createSchema, updateSchema, deleteParamsSchema, deleteQuerySchema } = require('./operationsSchema')
@@ -40,6 +41,8 @@ const router = express.Router()
  * @swagger
  * /operations/:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - operations
  *     summary: Retrieve all operations of the user.
@@ -73,13 +76,15 @@ const router = express.Router()
  */
 
 
-router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsController.getAllByUser)
+router.get('/', validatorHandler(findAllByUserSchema,'query'), authHandler('query'),operationsController.getAllByUser)
 
 
 /**
  * @swagger
  * /operations/:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - operations
  *     summary: Create a new operation.
@@ -136,12 +141,14 @@ router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsControll
  *                          example: 'categoryId required'
  *                       
  */
- router.post('/', validatorHandler(createSchema,'body'), operationsController.create)
+ router.post('/', validatorHandler(createSchema,'body'), authHandler('body'), operationsController.create)
 
 /**
  * @swagger
  * /operations/:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - operations
  *     summary: Update a operation
@@ -218,12 +225,14 @@ router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsControll
  *                              msg: string
  *                              example: 'operation not found' 
  */
- router.patch('/', validatorHandler(updateSchema, 'body'), operationsController.update)
+ router.patch('/', validatorHandler(updateSchema, 'body'), authHandler('body'), operationsController.update)
 
 /**
  * @swagger
  * /operations/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - operations
  *     summary: Update a operation
@@ -282,7 +291,7 @@ router.get('/', validatorHandler(findAllByUserSchema,'query'),operationsControll
  *                              msg: string
  *                              example: 'operation not found' 
  */
- router.delete('/:id',validatorHandler(deleteParamsSchema,'params'), validatorHandler(deleteQuerySchema,'query'), operationsController.remove)
+ router.delete('/:id',validatorHandler(deleteParamsSchema,'params'), validatorHandler(deleteQuerySchema,'query'), authHandler('query'), operationsController.remove)
 
 
 module.exports = router
