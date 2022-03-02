@@ -12,6 +12,11 @@ const getById = async (userId) =>{
     }
 }
 
+const getByEmail = async (email) =>{
+    const user = await models.User.findOne({where:{email}})
+    return user
+}
+
 const update = async (userId, userUpdates )=>{
     const user = await models.User.findByPk(userId)
     const updates = {...userUpdates}
@@ -20,4 +25,4 @@ const update = async (userId, userUpdates )=>{
     return
 }
 
-module.exports = {getById, update}
+module.exports = {getById, getByEmail , update}
