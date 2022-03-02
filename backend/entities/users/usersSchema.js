@@ -1,8 +1,17 @@
 const joi = require('joi')
 
 const username = joi.string()
+const email = joi.string()
 const password = joi.string()
 const id = joi.number()
+
+const createUserSchema = joi.object(
+    {
+        username: username.required(),
+        email: email.required(),
+        password: password.required()
+    }
+)
 
 const findSchema = joi.object(
     {
@@ -17,4 +26,4 @@ const updateSchema = joi.object(
     }
 )
 
-module.exports = { findSchema, updateSchema }
+module.exports = { createUserSchema, findSchema, updateSchema }

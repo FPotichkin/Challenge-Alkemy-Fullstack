@@ -14,4 +14,15 @@ const login = async (req,res,next) =>{
     }
 }
 
-module.exports = { login }
+const register = async (req,res,next) =>{
+    try {
+        await service.create(req.body)
+        res.status(201).json({
+            msg:'created'
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+module.exports = { login, register }

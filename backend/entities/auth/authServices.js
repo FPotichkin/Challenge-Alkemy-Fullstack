@@ -6,7 +6,7 @@ const login = async (email, password) =>{
     const user = await userService.getByEmail(email)
 
     if(!user || user.password != password ){
-        throw boom.badRequest('wrong credentials')
+        throw boom.notAcceptable('wrong credentials')
     }
     const token = jwt.sign({
         userId: user.userId,
@@ -16,4 +16,9 @@ const login = async (email, password) =>{
     return({token, userId:user.id})
 }
 
-module.exports = { login }
+const create = async (user)=>{
+    await userService.create(user)
+    return
+}
+
+module.exports = { login, create }
