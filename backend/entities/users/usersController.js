@@ -13,6 +13,16 @@ const getById = async (req,res,next) =>{
     }
 }
 
+const update = async (req,res,next)=>{
+    try {
+        await services.update(req.body.userId, req.body)
+        res.json({
+            msg: 'updated succesfully'
+        })
+    } catch (err) {
+        next(err)
+    }
+}
 
 
-module.exports = {getById}
+module.exports = {getById, update}

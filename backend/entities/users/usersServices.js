@@ -12,4 +12,12 @@ const getById = async (userId) =>{
     }
 }
 
-module.exports = {getById}
+const update = async (userId, userUpdates )=>{
+    const user = await models.User.findByPk(userId)
+    const updates = {...userUpdates}
+    console.log(updates)
+    const pepe = await user.update(updates)
+    return
+}
+
+module.exports = {getById, update}

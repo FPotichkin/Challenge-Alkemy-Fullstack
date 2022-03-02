@@ -59,12 +59,12 @@ const router = express.Router()
  *                  properties:
  *                      errors:
  *                          msg: 'userId must be a number'
- *      404:
- *        description: User not Found
- *        content:
+ *       404:
+ *         description: User not Found
+ *         content:
  *           application/json:
  *              schema:
- *                  type:object
+ *                  type: object
  *                  properties:
  *                      error:
  *                          msg: 'user not found'
@@ -73,5 +73,59 @@ const router = express.Router()
 
 router.get('/:userId', validatorHandler(findSchema,'params'), usersController.getById)
 
+/**
+ * @swagger
+ * /users/:
+ *   patch:
+ *     tags:
+ *      - users
+ *     summary: Update user.
+ *     requestBody:
+ *       content:
+ *           'application/json':
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      userId:
+ *                          type: integer
+ *                          required: true
+ *                          example: 1
+ *                      username:
+ *                          type: string
+ *                          example: Roberto
+ *                      password:
+ *                          type: string
+ *                          example: roberto123
+ *     responses:
+ *       200:
+ *         description: User update.
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      msg:
+ *                          type: string
+ *                          example: updated succesfully
+ *       400:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      errors:
+ *                          msg: 'userId must be a number'
+ *       404:
+ *         description: User not Found
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      error:
+ *                          msg: 'user not found'                                             
+ */
+ router.patch('/', validatorHandler(updateSchema, 'body'), usersController.update)
 
 module.exports = router

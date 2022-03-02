@@ -9,7 +9,12 @@ const findSchema = joi.object(
         userId: id.required()
     }
 )
+const updateSchema = joi.object(
+    {
+        userId : id.required(),
+        username: username,
+        password: password
+    }
+)
 
-
-
-module.exports = { findSchema }
+module.exports = { findSchema, updateSchema }
