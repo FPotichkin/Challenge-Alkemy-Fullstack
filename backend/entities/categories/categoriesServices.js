@@ -7,4 +7,16 @@ const getAll = async ()=>{
     return categoriesList
 }
 
-module.exports = { getAll }
+const getById = async (id, userId) =>{
+    const operationsList = await models.Category.findByPk(id,{
+        include:
+        [{
+            model: models.Operation,
+            as: 'operations',
+            where: { userId }
+        }]
+    })
+        return operationsList
+}
+
+module.exports = { getAll, getById }

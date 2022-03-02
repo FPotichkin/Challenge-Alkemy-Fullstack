@@ -13,4 +13,17 @@ const getAll = async (req,res,next)=>{
     }
 }
 
-module.exports = { getAll }
+const getById = async (req,res,next) =>{
+    try {
+        const operationsList = await services.getById(req.params.id, req.query.userId)
+        res.json({
+            data:{
+                operationsList
+            }
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+module.exports = { getAll, getById}

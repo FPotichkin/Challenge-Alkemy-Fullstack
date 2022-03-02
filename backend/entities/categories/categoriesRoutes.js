@@ -1,5 +1,7 @@
 const express = require('express')
 const categoriesController = require('./categoriesController')
+const { validatorHandler } = require('../../middlewares/validatorHandler')
+const { findByCategoryParams, findByCategoryQuery } = require('./categoriesSchema')
 
 const router = express.Router()
 
@@ -36,5 +38,37 @@ const router = express.Router()
 //#endregion
 router.get('/', categoriesController.getAll)
 
+//#region Swagger get by id
+/**
+ * @swagger
+ * /categories/{id}:
+ *   get:
+ *     tags:
+ *       - categories
+ *     summary: Retrieve all operations related to a specific category.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: category id  
+ *       - in: query
+ *         name: userId
+ *         required: true  
+ *     responses:
+ *       200:
+ *         description: List of operations by category.  
+ *       400:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *              schema:
+ *                  type: object
+ *                  properties:
+ *                      errors:
+ *                          msg: string
+ *                          example: 'userId required'             
+ */
+//#endregion
+router.get('/:id', validatorHandler(findByCategoryParams,'params'), validatorHandler(findByCategoryQuery), categoriesController.getById)
 
 module.exports = router
