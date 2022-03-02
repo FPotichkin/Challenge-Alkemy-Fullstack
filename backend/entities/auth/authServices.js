@@ -9,7 +9,7 @@ const login = async (email, password) =>{
         throw boom.notAcceptable('wrong credentials')
     }
     const token = jwt.sign({
-        userId: user.userId,
+        userId: user.id,
         username: user.username
     }, 'supersecret',{expiresIn: '1d'})
 
