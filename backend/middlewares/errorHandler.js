@@ -18,4 +18,10 @@ function uniqueErrorHandler(err, req, res, next){
     }
 }
 
-module.exports = {boomErrorHandler, uniqueErrorHandler}
+function serverErrorHandler(err, req, res, next) {
+    res.status(500).json({
+        msg: err.message
+    })
+}
+
+module.exports = {boomErrorHandler, uniqueErrorHandler, serverErrorHandler}
