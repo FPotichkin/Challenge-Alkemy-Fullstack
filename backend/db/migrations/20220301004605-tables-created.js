@@ -16,8 +16,8 @@ module.exports = {
 
   async down (queryInterface) {
 
-    await queryInterface.dropTable(USER_TABLE)
-    await queryInterface.dropTable(CATEGORY_TABLE)
     await queryInterface.dropTable(OPERATION_TABLE)
+    await queryInterface.dropTable(CATEGORY_TABLE)
+    await queryInterface.dropTable(USER_TABLE)
   }
 };
