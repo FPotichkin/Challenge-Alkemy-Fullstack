@@ -4,7 +4,7 @@ const services = require('./operationsServices')
 const getAllByUser = async (req,res,next)=>{
 
     try {
-        const operationsList = await services.getAll(req.query.userId)
+        const operationsList = await services.getAll(req.query.userId , req.query.limit)
         res.json({
             data:{
                 operationsList

@@ -1,9 +1,15 @@
 const boom = require('@hapi/boom')
 const { models } = require('../../libs/sequelize')
 
-const getAll = async (userId) =>{
+const getAll = async (userId, limit) =>{
     console.log('services')
-    const operationsList = await models.Operation.findAll({where:{userId}})
+    const operationsList = await models.Operation.findAll({
+        where:{userId},
+        limit: limit
+    })
+    if(!operationsList){
+        return []
+    }
     return operationsList
 }
 const create = async (operation) =>{
