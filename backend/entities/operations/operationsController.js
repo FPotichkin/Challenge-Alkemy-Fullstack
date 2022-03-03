@@ -43,7 +43,6 @@ const update = async (req, res, next )=>{
 
 const remove = async (req,res,next) =>{
     try {
-        console.log(req.params)
         await services.remove(req.params.id, req.query.userId)
         res.json({
             data:{

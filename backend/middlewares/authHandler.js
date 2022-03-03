@@ -12,8 +12,7 @@ function authHandler(property){
                 const payload = jwt.verify(token,'supersecret')
 
                 const userId = req[property].userId
-                console.log(payload)
-                console.log(userId)
+                
                 if(payload.userId != userId){
                     next(boom.unauthorized('Token invalidd'))
                 }else{

@@ -26,7 +26,6 @@ const getByEmail = async (email) =>{
 const update = async (userId, userUpdates )=>{
     const user = await models.User.findByPk(userId)
     const updates = {...userUpdates}
-    console.log(updates)
     const pepe = await user.update(updates)
     return
 }
