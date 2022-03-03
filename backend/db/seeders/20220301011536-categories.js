@@ -32,13 +32,16 @@ module.exports = {
       },
       {
         name: 'Transport'
+      },
+      {
+        name: 'Wage'
       }
-    ]);
+    ],{});
 
   },
 
   async down (queryInterface) {
  
-    await queryInterface.bulkDelete(CATEGORY_TABLE, null,{})
+    await queryInterface.bulkDelete(CATEGORY_TABLE, null,{});
   }
 };
