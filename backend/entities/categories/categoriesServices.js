@@ -16,7 +16,10 @@ const getById = async (id, userId) =>{
             where: { userId }
         }]
     })
-        return operationsList
+    if(!operationsList){
+        return []
+    }
+    return operationsList
 }
 
 module.exports = { getAll, getById }
