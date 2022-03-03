@@ -21,8 +21,10 @@ const swaggerDefinition = {
 // './entities/operations/operationsRoutes.js'
 const options = {
     swaggerDefinition,
-    apis:['./entities/operations/operationsRoutes.js',
+    apis:[
+          './entities/operations/operationsRoutes.js',
           './entities/categories/categoriesRoutes.js',
+          './entities/reports/reportsRoute.js',
           './entities/users/usersRoutes.js',
           './entities/auth/authRoutes.js'
         ]
