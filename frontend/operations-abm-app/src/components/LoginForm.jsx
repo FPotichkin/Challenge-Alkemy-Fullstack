@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LOGIN_URL } from '../Routes'
 import FormInput from './FormInput'
 
 const LoginForm = () => {
 
-    const login = async (event)=>{
-        event.preventDefault()
+  const [error, setError ] = useState('')
+  const [isVisible, setIsVisible] = useState('hidden')
 
-        const formData = new FormData(event.target)
-        const dataObject = Object.fromEntries(formData)
+  
+  const login = async (event)=>{
+      event.preventDefault()
 
+      const formData = new FormData(event.target)
+      const dataObject = Object.fromEntries(formData)
+
+      try {
         const resp = await fetch(LOGIN_URL,{
           method: 'POST',
           headers: {
@@ -18,18 +23,20 @@ const LoginForm = () => {
           body: JSON.stringify(dataObject)
         })
         const { data } = await resp.json()
-        console.log(data)
         if(!resp.ok){
-          console.log('cant')
+          setError('Wrong credentials')
+          setIsVisible('block')
           return
         }else{
-          console.log('yes we can')
           localStorage.setItem('Bearer', `${data.token}`)
           localStorage.setItem('UserId',`${data.userId}`)
           return
         }
-        
-    }
+      } catch (err) {
+        alert(err)
+      }
+      
+  }
 
   return (
     <div className='w-full mx-auto py-10 rounded-b-md bg-cyan-700'>
@@ -38,6 +45,7 @@ const LoginForm = () => {
             <FormInput type='email' name='email' placeholder='email@example.com'/>
             <label htmlFor='password' className='text-white ml-5 mt-2 mb-1'>Password</label>
             <FormInput type='password' name='password'/>
+            <p className={`${isVisible} bg-rose-200 text-red-600 ring-1 ring-red-700 text-center rounded w-11/12 mx-auto`}>{error}</p>
             <button className='w-11/12 mt-9 mx-auto p-1 rounded-lg text-gray-900 bg-gray-100 text-lg font-bold hover:bg-gray-900 hover:text-white hover:shadow-2xl hover:shadow-black'>Enter</button>
         </form>
     </div>
