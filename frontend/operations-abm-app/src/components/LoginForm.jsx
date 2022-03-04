@@ -1,12 +1,34 @@
 import React from 'react'
+import { LOGIN_URL } from '../Routes'
 import FormInput from './FormInput'
 
 const LoginForm = () => {
 
-    const login = (event)=>{
+    const login = async (event)=>{
         event.preventDefault()
-        console.log(1)
-        return
+
+        const formData = new FormData(event.target)
+        const dataObject = Object.fromEntries(formData)
+
+        const resp = await fetch(LOGIN_URL,{
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify(dataObject)
+        })
+        const { data } = await resp.json()
+        console.log(data)
+        if(!resp.ok){
+          console.log('cant')
+          return
+        }else{
+          console.log('yes we can')
+          localStorage.setItem('Bearer', `${data.token}`)
+          localStorage.setItem('UserId',`${data.userId}`)
+          return
+        }
+        
     }
 
   return (
