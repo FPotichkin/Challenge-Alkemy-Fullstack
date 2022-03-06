@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { LOGIN_URL } from '../Routes'
 import FormInput from './FormInput'
 
@@ -7,6 +8,7 @@ const LoginForm = () => {
   const [error, setError ] = useState('')
   const [isVisible, setIsVisible] = useState('hidden')
 
+  const navigate = useNavigate()
   
   const login = async (event)=>{
       event.preventDefault()
@@ -30,7 +32,7 @@ const LoginForm = () => {
         }else{
           localStorage.setItem('Bearer', `${data.token}`)
           localStorage.setItem('UserId',`${data.userId}`)
-          return
+          navigate('/dashboard')
         }
       } catch (err) {
         alert(err)
