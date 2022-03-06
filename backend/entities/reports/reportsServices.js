@@ -9,7 +9,7 @@ const calcBalance = async (userId) => {
     let withdraw = 0
 
     operationsList.forEach(operation => {
-        if(operation.type == 'deposit'){
+        if(operation.type == 'Deposit'){
             deposit += operation.quantity
         } else {
             withdraw += operation.quantity
