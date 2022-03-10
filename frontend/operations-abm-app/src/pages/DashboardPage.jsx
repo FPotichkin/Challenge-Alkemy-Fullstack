@@ -5,12 +5,13 @@ import { GiTakeMyMoney } from 'react-icons/gi'
 import { CATEGORIES_URL, OPERATIONS_URL, REPORT_URL } from '../Routes';
 import { useNavigate } from 'react-router-dom';
 import ListOperationsGrid from '../components/ListOperationsGrid';
+import NavBar from '../components/NavBar';
 
 const DashboardPage = () => {
 
     const [balance, setBalance] = useState(0)
     const [lastTen, setLastTen] = useState([])
-    const [categories, setCategories] = useState([])
+    const [categoriesList, setCategoriesList] = useState([])
 
     const navigate = useNavigate()
 
@@ -71,7 +72,7 @@ const DashboardPage = () => {
                 return
             }
             const { data } = await resp.json()
-            setCategories(data.categoriesList)
+            setCategoriesList(data.categoriesList)
         }
 
         getLatest()
@@ -82,10 +83,13 @@ const DashboardPage = () => {
 
 
   return (
-    <div className='flex flex-col w-full h-screen bg-gray-900'>
-        <div className='h-[15%]'>
+    <div className='flex flex-col w-full h-screen bg-gray-200'>
+        <div className='h-[15%] bg-gray-900'>
             <div className='w-full h-1/3 flex flex-row pt-4 px-4'>
-                <SideNav />
+                <div>
+                    <NavBar />
+                    <SideNav />
+                </div>
                 <div className='flex-grow'></div>
                 <h2 className='text-3xl text-white text-center w-fit mx-auto'><GiTakeMyMoney /></h2>
             </div>
@@ -95,8 +99,8 @@ const DashboardPage = () => {
         </div>
 
         {/* Operations Grid */}
-        <div className='w-full max-w-[700px] h-3/4 mx-auto overflow-auto border-x-4 border-gray-700'>
-            <ListOperationsGrid  operationsArray={lastTen} categories={categories}/>
+        <div className='w-full max-w-[700px] h-3/4 mx-auto overflow-auto my-auto'>
+            <ListOperationsGrid  operationsArray={lastTen} categories={categoriesList}/>
         </div>
     </div>
   )
