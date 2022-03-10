@@ -1,9 +1,7 @@
 # Challenge-Alkemy-Fullstack
 
-## Objetivo
- Desarrollar una aplicación para administración de presupuesto personal. La misma debe
-permitir crear y editar ingresos y egresos de dinero, y mostrar un balance resultante de las
-operaciones registradas.
+## Objective
+ Develop a personal budget administration application. It must allow to create and edit deposit and withdraw of money, and show the balance of all the registered operations
 
 ## Backend
  Description of backend
