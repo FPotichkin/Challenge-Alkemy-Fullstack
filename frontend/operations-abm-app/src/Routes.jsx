@@ -15,3 +15,6 @@ export const OPERATIONS_URL = `${BASE_URL}/operations`
 
 // categories route
 export const CATEGORIES_URL = `${BASE_URL}/categories`
+
+// users route
+export const USER_URL = `${BASE_URL}/users/`
