@@ -24,7 +24,7 @@ const SideNav = () => {
           <div className='w-ful h-[2px] bg-slate-300'></div>
           <div className="w-full my-2 text-center cursor-pointer hover:bg-gray-200" onClick={()=>{navigate('/dashboard')}}>DashBoard</div>
           <div className='w-ful h-[2px] bg-slate-300'></div>
-          <div className="w-full my-2   text-center cursor-pointer hover:bg-gray-20">Operations</div>
+          <div className="w-full my-2   text-center cursor-pointer hover:bg-gray-20" onClick={()=>{navigate('/abm')}}>Operations</div>
           <div className="w-full mt-2 bg-red-700 text-white text-center cursor-pointer " data-bs-toggle="collapse" data-bs-target="#confirmCol" aria-expanded="false" aria-controls="collapseExample">Log Out</div>
         </div>
         <div className='collapse bg-gray-300 pt-2' id='confirmCol'>
@@ -35,7 +35,7 @@ const SideNav = () => {
           </div>
         </div>
         </aside>
-        <button className='text-white text-xl' data-bs-toggle='offcanvas' data-bs-target='#sideNav'><GiHamburgerMenu /></button>
+        <button className='text-white text-xl lg:hidden' data-bs-toggle='offcanvas' data-bs-target='#sideNav'><GiHamburgerMenu /></button>
     </>
   )
 }
