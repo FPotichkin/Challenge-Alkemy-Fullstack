@@ -27,7 +27,7 @@ const getById = async(id)=>{
 
 const update = async (operationUpdates)=>{
     const operationTarget = await getById(operationUpdates.id)
-    if(operationTarget.userId === operationUpdates.userId){
+    if(operationTarget.userId == operationUpdates.userId){
         const changes = {...operationUpdates}
         await operationTarget.update(changes)
     }else{
