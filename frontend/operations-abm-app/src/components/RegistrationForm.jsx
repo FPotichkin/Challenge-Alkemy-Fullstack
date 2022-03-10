@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { REGISTER_URL } from '../Routes'
-import FormInput from './FormInput'
+import FormInputReq from './FormInputReq'
 
 const RegistrationForm = () => {
 
@@ -60,13 +60,13 @@ const RegistrationForm = () => {
     <div className='w-full h-full pt-10 pb-6 mx-auto rounded-b-md bg-cyan-700 shadow-md shadow-black'>
         <form onSubmit={register} className='w-full h-full flex flex-col justify-center'>
             <label htmlFor="username" className='text-white  pl-4'>Username</label>
-            <FormInput name='username' type='text' placeholder='Your username'/>
+            <FormInputReq name='username' type='text' placeholder='Your username'/>
             <label htmlFor='email' className='text-white  pl-4'>Email</label>
-            <FormInput name='email' type='email' placeholder='Your email'/>
+            <FormInputReq name='email' type='email' placeholder='Your email'/>
             <label htmlFor='password' className='text-white  pl-4'>Password</label>
-            <FormInput name='password' type='password'/>
+            <FormInputReq name='password' type='password'/>
             <label htmlFor='confPass' className='text-white  pl-4'>Confirm Password</label>
-            <FormInput name='confPass' type='password'/>
+            <FormInputReq name='confPass' type='password'/>
             <p className={`${invalid} bg-rose-200 text-red-600 ring-1 ring-red-700 text-center rounded w-11/12 mx-auto`}>{error}</p>
             <button className='w-2/3 mt-4 mx-auto rounded-lg bg-gray-100 hover:shadow-lg hover:shadow-black'>Start</button>
         </form>
