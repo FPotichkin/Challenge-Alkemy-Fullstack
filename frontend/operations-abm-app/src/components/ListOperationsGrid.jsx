@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {AiFillDelete, AiFillEdit, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai'
+import DeleteBox from './DeleteBox'
+import ModifyOpForm from './ModifyOpForm'
 
-const ListOperationsGrid = ({ operationsArray, setAnAction , setOpId, areButton, categories}) => {
+const ListOperationsGrid = ({ TriggerFetch ,operationsArray, areButton, categories, setError, setOpId, operationId}) => {
+  
+
   const categoryNameSetter = (categoryId)=>{
     const regex = /"/ig
     const correctCategory = categories.find((category)=>categoryId === category.id)
@@ -41,33 +45,29 @@ const ListOperationsGrid = ({ operationsArray, setAnAction , setOpId, areButton,
         operationsArray.map((operation, index)=>{
           return(
           <div key={index} className={`flex bg-gray-100 p-3 border-collapse border-b-2 border-gray-300 `}>
+
             { borderColor(operation.type) }
             <div className='w-3/4 flex flex-col space-y-[2px] '>
               <div className='flex justify-between'>
                 <div className='text-sm'>{categoryNameSetter(operation.categoryId)}</div>
                 <div></div>
               </div>
-              <div> consectetur adipisii</div>  
+              <div>{operation.concept}</div>  
               <div className='text-sm tracking-wide'>{dateSetter(operation.date)}</div>
             </div>
             <div className='w-1/4 flex flex-row'>
               <div className='self-end w-full flex flex-col space-y-2 '>
                 {quantitySetter(operation)}
                 <div className='flex justify-between'>  
-                  {areButton && <button className='w-6 h-6 flex items-center justify-center rounded-3xl bg-sky-700 text-white' onClick={()=>{
-                    setOpId(operation.id)
-                    setAnAction('modify')}
-                  }><AiFillEdit /></button>}
+                  {areButton && <button className='w-6 h-6 flex items-center justify-center rounded-3xl bg-sky-700 text-white' onClick={()=>{setOpId(operation.id)}} data-bs-toggle="offcanvas" data-bs-target="#offcanvasModify"><AiFillEdit /></button>}
+                  <ModifyOpForm  categories={categories} opId={operationId} TriggerFetch={TriggerFetch} setError={setError}/>
                   {/*  */}
-                  {areButton && <button className=' w-6 h-6 flex items-center justify-center rounded-3xl bg-red-600 text-white' onClick={()=>{
-                    setOpId(operation.id)
-                    setAnAction('delete')}
-                  }
-                  ><AiFillDelete /></button>}
+                  {areButton && <button className=' w-6 h-6 flex items-center justify-center rounded-3xl bg-red-600 text-white' onClick={()=>{setOpId(operation.id)}}  data-bs-toggle="offcanvas" data-bs-target="#offcanvasDelete"><AiFillDelete /></button>}
+                  <DeleteBox opId={operationId} TriggerFetch={TriggerFetch} setError={setError}/>
                 </div>
               </div>
             </div>
-
+              
           </div>)
         })
       }
